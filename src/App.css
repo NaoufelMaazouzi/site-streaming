@@ -4,9 +4,14 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 .body {
   height: 100%;
   width: 100%;
+  margin-top: 74px;
 }
 
 /*.header {
@@ -29,13 +34,6 @@
 .nav-links a {
   text-decoration: none;
 }*/
-
-.searchInput {
-  padding: 12px;
-  float: right;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
 
 .PrincipalPage {
   background-color: #0f0f0f;
@@ -130,6 +128,7 @@
   text-decoration: none;
   border: 1px solid #ddd;
   border-radius: 2px;
+  color: white;
 }
 
 .paginationList {
@@ -235,7 +234,9 @@
   filter: blur(1.3px);
 }*/
 
-nav {
+/***********************************************************************/
+
+/*nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -311,9 +312,98 @@ nav {
 
   /*.searchInput {
     display: none;
-  }*/
+  }
 }
 
 .nav-active {
   transform: translateX(0%);
+}*/
+
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #3a3a3e;
+  height: 86px;
+}
+
+.toolbar__navigation {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.toolbar__logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+.toolbar_navigation-items a {
+  color: white;
+  text-decoration: none;
+}
+
+.toolbar__logo {
+  margin: 1rem;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar_navigation-items {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.toolbar_navigation-items ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.toolbar_navigation-items li {
+  padding: 0 2rem;
+  font-size: 1.2rem;
+}
+
+.toolbar_navigation-items a:hover,
+.toolbar_navigation-items a:active {
+  color: #fa923f;
+}
+
+.searchInput {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .toolbar_navigation-items {
+    display: none;
+  }
+}
+
+@media (max-width: 1010px) {
+  .toolbar_navigation-items li {
+    padding: 0 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .toolbar__toggle-button {
+    display: none;
+  }
+
+  .toolbar__logo {
+    margin-left: 0;
+  }
 }

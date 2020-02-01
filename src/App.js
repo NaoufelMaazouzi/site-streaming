@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
-import Header from './Components/Header';
+import Header from './Components/Navbar/Header';
 import FilmsWithGenres from './Components/FilmsWithGenres';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import FilmsDetails from './Components/FilmsDetails';
+import SideDrawer from './Components/SideDrawer/SideDrawer';
+import Backdrop from './Components/Backdrop/Backdrop';
 
 const API_KEY = "c0f2b3829e285f40ea8719b23184af1b";
 
@@ -11,6 +13,7 @@ const API_KEY = "c0f2b3829e285f40ea8719b23184af1b";
 const App = () => {
 
   const [film, setFilm] = useState([]);
+  const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
   const getMovies = async e => {
     e.preventDefault();
@@ -32,11 +35,26 @@ const App = () => {
     setFilm([]);
   }
 
+  const drawerToggleClickHandler = () => {
+    setSideDrawerOpen(!sideDrawerOpen);
+  }
+
+  const backdropClickHandler = () => {
+    setSideDrawerOpen(false);
+  }
+
+  let backdrop;
+
+  if (sideDrawerOpen) {
+    backdrop = <Backdrop click={backdropClickHandler} />;
+  }
 
   return (
     <Router>
       <div className="body">
-        <Header getMovies={getMovies} refresh={refresh} /*parentCallback={callbackFunction}*/ />
+        <Header getMovies={getMovies} refresh={refresh} drawerClickHandler={drawerToggleClickHandler} />
+        <SideDrawer getMovies={getMovies} refresh={refresh} click={backdropClickHandler} show={sideDrawerOpen} />
+        {backdrop}
         <Switch>
           <Route path="/" exact component={() => <FilmsWithGenres id={''} filmsSearch={film} titreSection={"FILMS POPULAIRES"} />} />
           <Route path="/actions" component={() => <FilmsWithGenres id={`28`} filmsSearch={film} titreSection={"FILMS D'ACTIONS"} />} />
