@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './Components/Navbar/Header';
-import FilmsWithGenres from './Components/FilmsWithGenres';
+import FilmsWithGenres from './Components/FilmsWithGenres/FilmsWithGenres';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import FilmsDetails from './Components/FilmsDetails';
+import FilmsDetails from './Components/FilmsDetails/FilmsDetails';
 import SideDrawer from './Components/SideDrawer/SideDrawer';
 import Backdrop from './Components/Backdrop/Backdrop';
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../App.css';
+import './FilmsWithGenres.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-import Pagination from './Pagination';
+import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 
 

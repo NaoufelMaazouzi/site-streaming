@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import './Pagination.css';
 
 const Pagination = ({ pages, nextPage, currentPage }) => {
     const pageLinks = []

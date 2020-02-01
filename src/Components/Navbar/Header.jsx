@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../App.css';
+import './Header.css';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const Header = ({ getMovies, refresh, drawerClickHandler }) => {
                 <div className="toolbar__toggle-button">
                     <DrawerToggleButton click={drawerClickHandler} />
                 </div>
-                <div className="toolbar__logo"><a href="#">Naou</a></div>
+                <div className="toolbar__logo"><a href="/">Naou</a></div>
                 <div className="spacer"></div>
                 <div className="toolbar_navigation-items">
                     <ul>
