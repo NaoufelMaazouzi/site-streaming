@@ -1,27 +1,50 @@
 import React from 'react';
 import './Pagination.css';
 
-const Pagination = ({ pages, nextPage, currentPage }) => {
+import { fetchFilmsWithGenres } from '../../redux/filmWithGenres/filmWithGenresActions';
+import { connect, useDispatch } from 'react-redux';
+
+
+const Pagination = ({ id, filmsData }) => {
     const pageLinks = []
+    const dispatch = useDispatch();
 
-    for (let i = 1; i <= pages; i++) {
-        let active = currentPage === i ? 'active' : '';
 
-        pageLinks.push(<li className={`paginationList ${active}`} key={i} onClick={() => nextPage(i)}><a href="#">{i}</a></li>)
+
+    const filmsTotalPages = filmsData.totalPages && filmsData.totalPages;
+    const filmsCurrentPage = filmsData.currentPage && filmsData.currentPage;
+
+    for (let i = 1; i <= filmsTotalPages; i++) {
+        let active = filmsCurrentPage === i ? 'active' : '';
+
+        pageLinks.push(<li className={`paginationList ${active}`} key={i} onClick={() => dispatch(fetchFilmsWithGenres(id, i))}><a >{i}</a></li>)
     }
+
 
     return (
         <div className="paginationContainer">
             <ul className="paginationList">
-                {currentPage > 1 ? <li onClick={() => nextPage(currentPage - 1)}><a href="#" className={`paginationList`}>Prec</a></li> : ''}
-                {currentPage > 1 ? <li onClick={() => nextPage(pages - pages + 1)}><a href="#" className={`paginationList`}> &#60;&#60; </a></li> : ''}
-                {pageLinks[currentPage - 3]}{pageLinks[currentPage - 2]}{pageLinks[currentPage - 1]}{pageLinks[currentPage]}{pageLinks[currentPage + 1]}
-                {currentPage > 1 && currentPage != pages ? <li onClick={() => nextPage(pages)}><a href="#" className={`paginationList`}>>></a></li> : ''}
-                {currentPage < pages + 1 && currentPage != pages ? <li onClick={() => nextPage(currentPage + 1)}><a href="#" className={`paginationList`}>Suivant</a></li> : ''}
+                {filmsCurrentPage > 1 ? <li onClick={() => dispatch(fetchFilmsWithGenres(id, filmsCurrentPage - 1))}><a className={`paginationList`}>Prec</a></li> : ''}
+                {filmsCurrentPage > 1 ? <li onClick={() => dispatch(fetchFilmsWithGenres(id, filmsTotalPages - filmsTotalPages + 1))}><a className={`paginationList`}> &#60;&#60; </a></li> : ''}
+                {pageLinks[filmsCurrentPage - 3]}{pageLinks[filmsCurrentPage - 2]}{pageLinks[filmsCurrentPage - 1]}{pageLinks[filmsCurrentPage]}{pageLinks[filmsCurrentPage + 1]}
+                {filmsCurrentPage > 1 && filmsCurrentPage !== filmsTotalPages ? <li onClick={() => dispatch(fetchFilmsWithGenres(id, filmsTotalPages))}><a className={`paginationList`}>>></a></li> : ''}
+                {filmsCurrentPage < filmsTotalPages + 1 && filmsCurrentPage !== filmsTotalPages ? <li onClick={() => dispatch(fetchFilmsWithGenres(id, filmsCurrentPage + 1))}><a className={`paginationList`}>Suivant</a></li> : ''}
             </ul>
-        </div>
+        </div >
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        filmsData: state.filmsWithGenres,
+        filmSearch: state.filmSearch
+    }
+}
 
-export default Pagination;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchFilmsWithGenres: (id, page) => dispatch(fetchFilmsWithGenres(id, page))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pagination);

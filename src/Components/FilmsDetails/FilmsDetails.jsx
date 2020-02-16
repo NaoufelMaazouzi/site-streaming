@@ -1,41 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import './FilmsDetails.css';
 
+import { connect } from 'react-redux';
+import { fetchFilmsDetails } from '../../redux/filmsDetails/filmsDetailsActions';
 
-const FilmsDetails = ({ match }) => {
-    const [films, setFilms] = useState([]);
+
+const FilmsDetails = ({ match, fetchFilmsDetails, filmsDetails }) => {
+
     useEffect(() => {
-        fetchFilms();
+        fetchFilmsDetails();
     }, [])
-
-
-
-    const fetchFilms = async () => {
-        const data = await fetch(
-            `https://api.themoviedb.org/3/movie/${match.params.id}?api_key=c0f2b3829e285f40ea8719b23184af1b&language=fr`
-        );
-
-        const fetchedFilms = await data.json();
-
-        setFilms(fetchedFilms);
-    }
-
-
 
     return (
         <div className="flexBox" >
             <div className="videoContainer">
-                <div className="titreFilms"><h1 className="titre">{films.title}</h1></div>
-                <img alt={""} src={`https://image.tmdb.org/t/p/original${films.backdrop_path}`} />
+                <div className="titreFilms"><h1 className="titre">{filmsDetails.filmsDetailsFetched && filmsDetails.filmsDetailsFetched.title}</h1></div>
+                <img alt={""} src={`https://image.tmdb.org/t/p/original${filmsDetails.filmsDetailsFetched && filmsDetails.filmsDetailsFetched.backdrop_path}`} />
             </div>
             <div className="infosDiv">
-                <p className="filmsOverview">{films.overview}</p>
-                <p className="filmsOverview">Titre original: &nbsp;&nbsp;&nbsp;&nbsp; {films.original_title}</p>
-                <p className="filmsOverview">Date de sortie: &nbsp;&nbsp;&nbsp;&nbsp; {films.release_date}</p>
+                <p className="filmsOverview">{filmsDetails.filmsDetailsFetched && filmsDetails.filmsDetailsFetched.overview}</p>
+                <p className="filmsOverview">Titre original: &nbsp;&nbsp;&nbsp;&nbsp; {filmsDetails.filmsDetailsFetched && filmsDetails.filmsDetailsFetched.original_title}</p>
+                <p className="filmsOverview">Date de sortie: &nbsp;&nbsp;&nbsp;&nbsp; {filmsDetails.filmsDetailsFetched && filmsDetails.filmsDetailsFetched.release_date}</p>
             </div>
         </div>
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        filmsDetails: state.filmsDetails
+    }
+}
 
-export default FilmsDetails;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        fetchFilmsDetails: () => dispatch(fetchFilmsDetails(ownProps.match.params.id))
+    }
+}
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilmsDetails);

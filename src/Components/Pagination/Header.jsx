@@ -6,13 +6,12 @@ import { Link } from 'react-router-dom';
 import { fetchFilmsSearch, fetchFilmsSearchRefresh } from '../../redux/filmSearch/filmSearchActions';
 import { connect, useDispatch } from 'react-redux';
 
-const Header = ({ drawerClickHandler, fetchFilmsSearch }) => {
+const Header = ({ getMovies, refresh, drawerClickHandler, filmSearch, fetchFilmsSearch }) => {
     const dispatch = useDispatch();
 
     const _onSubmit = (e) => {
         e.preventDefault();
         fetchFilmsSearch(e.target.elements.nomFilm.value);
-        e.target.elements.nomFilm.value = '';
     }
 
     return (
