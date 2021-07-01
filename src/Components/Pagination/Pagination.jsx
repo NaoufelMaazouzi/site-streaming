@@ -17,7 +17,7 @@ const Pagination = ({ id, filmsData }) => {
     for (let i = 1; i <= filmsTotalPages; i++) {
         let active = filmsCurrentPage === i ? 'active' : '';
 
-        pageLinks.push(<li className={`paginationList ${active}`} key={i} onClick={() => dispatch(fetchFilmsWithGenres(id, i))}><a >{i}</a></li>)
+        pageLinks.push(<li className={`paginationList ${active}`} key={i} onClick={() => dispatch(fetchFilmsWithGenres(id, i))}><a>{i}</a></li>)
     }
 
 
@@ -37,7 +37,6 @@ const Pagination = ({ id, filmsData }) => {
 const mapStateToProps = (state) => {
     return {
         filmsData: state.filmsWithGenres,
-        filmSearch: state.filmSearch
     }
 }
 

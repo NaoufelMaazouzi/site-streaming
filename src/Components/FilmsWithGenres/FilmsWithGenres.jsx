@@ -1,65 +1,72 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './FilmsWithGenres.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-import Pagination from '../Pagination/Pagination';
-import { Link } from 'react-router-dom';
-
 import { fetchFilmsWithGenres } from '../../redux/filmWithGenres/filmWithGenresActions';
 import { connect } from 'react-redux';
+import { getFavoritesFilms } from '../../redux/favoritesFilms/favoritesFilmsActions';
+import CardFilm from './cardFilm';
 
 
-const FilmsWithGenres = ({ id, titreSection, filmsData, fetchFilmsWithGenres, filmSearch }) => {
-
-    const filmsTotalResults = filmsData.totalResults && filmsData.totalResults;
+const FilmsWithGenres =  ({
+    id,
+    titreSection,
+    getFavoritesFilms,
+    filmsData,
+    fetchFilmsWithGenres,
+    filmSearch,
+    favoritesFilms
+}) => {
+    let cardFilm = <CardFilm titreSection={titreSection} />;
 
     useEffect(() => {
-        fetchFilmsWithGenres(id, 1);
+        if (titreSection !== 'Favoris') {
+            fetchFilmsWithGenres(id, 1);
+        }
+        getFavoritesFilms();
     }, [])
+
+
+    if (titreSection !== 'Favoris' && filmSearch?.searchFilmsFetched?.results?.length) {
+        cardFilm = <CardFilm
+        data={filmSearch?.searchFilmsFetched?.results}
+        titreSection={titreSection}
+        totalResults={filmSearch?.searchFilmsFetched?.total_results}
+        id={id}
+        />
+    } else if (titreSection !== 'Favoris') {
+        cardFilm = <CardFilm
+        data={filmsData?.filmsFetched?.results}
+        titreSection={titreSection}
+        totalResults={filmsData?.totalResults}
+        id={id}
+        />
+    } else {
+        cardFilm = <CardFilm
+        data={favoritesFilms}
+        titreSection={titreSection}
+        totalResults={favoritesFilms?.length}
+        id={id}
+        />
+    }
 
     return (
         <div>
-            <div className="flexBox" >
-                <div className="titreSection"><h1 className="titre">{titreSection}</h1></div>
-                {filmSearch.searchFilmsFetched && filmSearch.searchFilmsFetched.results && filmSearch.searchFilmsFetched.results.length > 0 ? filmSearch.searchFilmsFetched.results.map((search, index) => (
-                    <div className="cardFilm" key={index}>
-                        <div className="playIcon">
-                            <Link to={`/${search.id}`} className="icon" title="Regarder">
-                                <FontAwesomeIcon icon={faPlayCircle} />
-                            </Link>
-                            <p className="titres">{search.title}</p>
-                        </div>
-                        <img alt={""} src={`https://image.tmdb.org/t/p/original${search.poster_path}`} />
-                    </div>
-                )) : filmsData.filmsFetched && filmsData.filmsFetched.results.map((search, index) => (
-                    <div className="cardFilm" key={index}>
-                        <div className="playIcon">
-                            <Link to={`/${search.id}`} className="icon" title="Regarder">
-                                <FontAwesomeIcon icon={faPlayCircle} />
-                            </Link>
-                            <p className="titres">{search.title}</p>
-                        </div>
-                        <img alt={""} src={`https://image.tmdb.org/t/p/original${search.poster_path}`} />
-                    </div>
-                ))}
-            </div >
-            {filmsTotalResults > 20 ? <Pagination id={id} /> : ''}
+            {cardFilm}
         </div>
-
     );
-
 }
 
 const mapStateToProps = (state) => {
     return {
         filmsData: state.filmsWithGenres,
-        filmSearch: state.filmSearch
+        filmSearch: state.filmSearch,
+        favoritesFilms: state.favoritesFilms.favoritesFilmsInCache,
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        fetchFilmsWithGenres: (id, page) => dispatch(fetchFilmsWithGenres(id, page))
+        fetchFilmsWithGenres: (id, page) => dispatch(fetchFilmsWithGenres(id, page)),
+        getFavoritesFilms: () => dispatch(getFavoritesFilms())
     }
 }
 

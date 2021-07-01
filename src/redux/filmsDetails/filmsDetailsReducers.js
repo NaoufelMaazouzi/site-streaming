@@ -1,4 +1,4 @@
-import { FETCH_FILMS_DETAILS_SUCCES, FETCH_FILMS_DETAILS_FAIL } from './types';
+import { FETCH_FILMS_DETAILS_SUCCES, FETCH_FILMS_DETAILS_FAIL } from '../types';
 
 const initialeState = () => {
     return {

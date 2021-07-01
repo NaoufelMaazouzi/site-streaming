@@ -7,8 +7,6 @@ import FilmsDetails from './Components/FilmsDetails/FilmsDetails';
 import SideDrawer from './Components/SideDrawer/SideDrawer';
 import Backdrop from './Components/Backdrop/Backdrop';
 
-
-
 const App = () => {
 
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
@@ -41,6 +39,7 @@ const App = () => {
           <Route path="/comedie" component={() => <FilmsWithGenres id={`35`} titreSection={"COMEDIE"} />} />
           <Route path="/horreur" component={() => <FilmsWithGenres id={`27`} titreSection={"FILMS D'HORREUR"} />} />
           <Route path="/thriller" component={() => <FilmsWithGenres id={`53`} titreSection={"THRILLER"} />} />
+          <Route path="/favorites" component={() => <FilmsWithGenres id={''} titreSection={"Favoris"} />} />
           <Route path="/:id" component={FilmsDetails} />
         </Switch>
       </div>

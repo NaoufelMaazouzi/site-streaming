@@ -21,7 +21,7 @@ const Header = ({ drawerClickHandler, fetchFilmsSearch }) => {
                 <div className="toolbar__toggle-button">
                     <DrawerToggleButton click={drawerClickHandler} />
                 </div>
-                <div className="toolbar__logo"><a href="/">Naou</a></div>
+                <div className="toolbar__logo"><a href="/"><img alt={""} className="logo" src="/Logo2Canal-.jpg"/></a></div>
                 <div className="spacer"></div>
                 <div className="toolbar_navigation-items">
                     <ul>
@@ -43,8 +43,11 @@ const Header = ({ drawerClickHandler, fetchFilmsSearch }) => {
                         <Link to="/thriller" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
                             <li>Thriller</li>
                         </Link>
+                        <Link to="/favorites" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
+                            <li>Favoris</li>
+                        </Link>
                     </ul>
-                    <form onSubmit={_onSubmit} >
+                    <form onSubmit={_onSubmit}>
                         <input className="searchInput" type="text" placeholder="Titre du film" name="nomFilm"></input>
                     </form>
                 </div>
