@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Header.css';
 import DrawerToggleButton from '../SideDrawer/DrawerToggleButton';
-import { Link } from 'react-router-dom';
-
+import { Link, useHistory } from 'react-router-dom';
 import { fetchFilmsSearch, fetchFilmsSearchRefresh } from '../../redux/filmSearch/filmSearchActions';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 
-const Header = ({ drawerClickHandler, fetchFilmsSearch }) => {
-    const dispatch = useDispatch();
+const Header = ({ drawerClickHandler, fetchFilmsSearch, fetchFilmsSearchRefresh }) => {
+    const [activeLink, setActiveLink] = useState('');
+    const history = useHistory();
 
     const _onSubmit = (e) => {
         e.preventDefault();
-        fetchFilmsSearch(e.target.elements.nomFilm.value);
+        history.push(`/?search=${e.target.elements.nomFilm.value}&page=1`);
         e.target.elements.nomFilm.value = '';
+    }
+
+    useEffect(() => {
+        setActiveLink(history.location.pathname)
+    }, [])
+
+    const handleClick = (pathName) => {
+        setActiveLink(pathName);
+        return fetchFilmsSearchRefresh();
     }
 
     return (
@@ -21,34 +30,36 @@ const Header = ({ drawerClickHandler, fetchFilmsSearch }) => {
                 <div className="toolbar__toggle-button">
                     <DrawerToggleButton click={drawerClickHandler} />
                 </div>
-                <div className="toolbar__logo"><a href="/"><img alt={""} className="logo" src="/Logo2Canal-.jpg"/></a></div>
+                <div className="toolbar__logo">
+                    <a href="/"><img alt={""} className="logo" src="/Logo2Canal-.jpg"/></a>
+                </div>
                 <div className="spacer"></div>
                 <div className="toolbar_navigation-items">
                     <ul>
-                        <Link to="/" exact onClick={() => dispatch(fetchFilmsSearchRefresh())}>
-                            <li>Accueil</li>
+                        <Link to="/?page=1" exact onClick={() => handleClick('/')}>
+                            <li className={activeLink === '/' ? 'activeLink' : ''}>Accueil</li>
                         </Link>
-                        <Link to="/actions" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
-                            <li>Actions</li>
+                        <Link to="/actions?page=1" onClick={() => handleClick('/actions')}>
+                            <li className={activeLink === '/actions' ? 'activeLink' : ''}>Actions</li>
                         </Link>
-                        <Link to="/aventure" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
-                            <li>Aventure</li>
+                        <Link to="/aventure?page=1" onClick={() => handleClick('/aventure')}>
+                            <li className={activeLink ==='/aventure' ? 'activeLink' : ''}>Aventure</li>
                         </Link>
-                        <Link to="/comedie" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
-                            <li>Comédie</li>
+                        <Link to="/comedie?page=1" onClick={() => handleClick('/comedie')}>
+                            <li className={activeLink === '/comedie' ? 'activeLink' : ''}>Comédie</li>
                         </Link>
-                        <Link to="/horreur" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
-                            <li>Horreur</li>
+                        <Link to="/horreur?page=1" onClick={() => handleClick('/horreur')}>
+                            <li className={activeLink === '/horreur' ? 'activeLink' : ''}>Horreur</li>
                         </Link>
-                        <Link to="/thriller" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
-                            <li>Thriller</li>
+                        <Link to="/thriller?page=1" onClick={() => handleClick('/thriller')}>
+                            <li className={activeLink === '/thriller' ? 'activeLink' : ''}>Thriller</li>
                         </Link>
-                        <Link to="/favorites" onClick={() => dispatch(fetchFilmsSearchRefresh())}>
-                            <li>Favoris</li>
+                        <Link to="/favoris?page=1" onClick={() => handleClick('/favoris')}>
+                            <li className={activeLink === '/favoris' ? 'activeLink' : ''}>Favoris</li>
                         </Link>
                     </ul>
                     <form onSubmit={_onSubmit}>
-                        <input className="searchInput" type="text" placeholder="Titre du film" name="nomFilm"></input>
+                        <input className="searchInput" type="text" placeholder="Rechercher..." name="nomFilm"></input>
                     </form>
                 </div>
             </nav>
@@ -57,15 +68,16 @@ const Header = ({ drawerClickHandler, fetchFilmsSearch }) => {
     );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         filmSearch: state.filmSearch
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        fetchFilmsSearch: (search) => dispatch(fetchFilmsSearch(search))
+        fetchFilmsSearch: ({search, page}) => dispatch(fetchFilmsSearch({search, page})),
+        fetchFilmsSearchRefresh: () => dispatch(fetchFilmsSearchRefresh())
     }
 }
 

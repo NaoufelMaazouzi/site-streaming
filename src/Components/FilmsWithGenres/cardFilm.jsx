@@ -10,6 +10,8 @@ import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import './FilmsWithGenres.css';
 import { connect } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
+import { CircularProgress } from '@material-ui/core';
+import red from '@material-ui/core/colors/red';
 
 const CardFilm = ({
     id,
@@ -18,28 +20,32 @@ const CardFilm = ({
     addFavoritesFilms,
     getFavoritesFilms,
     titreSection,
-    totalResults
+    totalResults,
+    reload
 }) => {
-    const [hidden, setHidden] = useState(true);
+    const [loading, setLoading] = useState(true);
+    const canReload = reload ? data : null;
 
     useEffect(() => {
-        getFavoritesFilms();
-        setHidden(true);
+        getFavoritesFilms({});
+        setLoading(true);
         setTimeout(() => {
-            setHidden(false);
-        }, 200);
-    }, [titreSection !== 'Favoris' ? data : null])
+            setLoading(false);
+        }, 400);
+    }, [canReload])
 
     return (
         <div>
-            {!hidden ? 
             <div className="flexBox">
                     <div className="titreSection">
                         <h1 className="titre">{titreSection}</h1></div>
-                        {data?.map((film, index) => (
+                        {!loading && totalResults ? data?.map((film, index) => (
                             <div className="cardFilm" key={index}>
+                                {film.poster_path ? 
+                                <img alt="poster film" src={`https://image.tmdb.org/t/p/w342${film.poster_path}`}/> :
+                                <img alt="poster Canal-" src="/LogoCanal-.jpg"/>}
                                 <div className="playIcon">
-                                    <Link to={`/${film.id}`} className="icon" title="Regarder">
+                                    <Link to={`/details/${film.id}`} className="icon" title="Regarder">
                                         <FontAwesomeIcon icon={faPlayCircle} size='xs'/>
                                     </Link>
                                     <p className="titres">{film.title}</p>
@@ -48,36 +54,39 @@ const CardFilm = ({
                                             <StarRateRoundedIcon />
                                             <p>{film.vote_average}</p>
                                         </div>
-                                        <IconButton color="primary" aria-label="ajouter aux favoris" component="span">
-                                        {favoritesFilms.map(e => e.id)?.includes(film.id) ?
+                                        <IconButton style={{ color: red[500] }} aria-label="ajouter aux favoris" component="span">
+                                        {favoritesFilms.films.map(e => e.id)?.includes(film.id) ?
                                             <FavoriteIcon onClick={() => addFavoritesFilms(film)} /> :
                                             <FavoriteBorderIcon onClick={() => addFavoritesFilms(film)} />
                                         }
                                         </IconButton>
                                     </div>
                                 </div>
-                                {film.poster_path ? 
-                                <img alt={""} src={`https://image.tmdb.org/t/p/w342${film.poster_path}`}/> :
-                                <img alt={""} src="/LogoCanal-.jpg"/>
-                                }
                             </div>
-                        ))}
-                    </div> : ''}
-            {!hidden && totalResults > 20 ? <Pagination id={id} /> : ''}
+                        )) :
+                        (!loading && titreSection === 'FAVORIS' &&
+                        <div className="noResults">
+                            <h2 className="titleNoResults">Vous n'avez pas de films dans vos favoris !</h2>
+                        </div>) || 
+                        <div className="waitingDiv">
+                            <CircularProgress size={80} />
+                        </div>}
+                    </div>
+            {!loading ? <Pagination id={id} favorites={titreSection === 'FAVORIS' ? favoritesFilms : false} /> : ''}
         </div>
     );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         favoritesFilms: state.favoritesFilms.favoritesFilmsInCache,
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
     return {
-        addFavoritesFilms: (film) => dispatch(addFavoritesFilms(film)),
-        getFavoritesFilms: () => dispatch(getFavoritesFilms())
+        addFavoritesFilms: film => dispatch(addFavoritesFilms(film)),
+        getFavoritesFilms: ({pageNumber}) => dispatch(getFavoritesFilms({pageNumber}))
     }
 }
 

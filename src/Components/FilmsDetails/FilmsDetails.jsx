@@ -21,7 +21,7 @@ const FilmsDetails = ({ fetchFilmsDetails, filmsDetails }) => {
               <div className="videoContainer">
                 <h1 className="filmTitle">{filmsDetails?.filmsDetailsFetched?.title}</h1>
                 {filmsDetails?.filmsDetailsFetched?.trailerKeyVideo ? 
-                <iframe
+                  <iframe
                     width="853"
                     height="480"
                     src={`https://www.youtube.com/embed/${filmsDetails.filmsDetailsFetched.trailerKeyVideo}`}
@@ -29,7 +29,8 @@ const FilmsDetails = ({ fetchFilmsDetails, filmsDetails }) => {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     title="Embedded youtube"
-              /> :
+                  /> 
+               :
               filmsDetails?.filmsDetailsFetched?.backdrop_path ? <div>
                     <img alt={""} src={`https://image.tmdb.org/t/p/original${filmsDetails.filmsDetailsFetched.backdrop_path}`} />
                     <h2 className="titleImage">(Aucun trailer)</h2>
@@ -53,7 +54,7 @@ const FilmsDetails = ({ fetchFilmsDetails, filmsDetails }) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         filmsDetails: state.filmsDetails
     }

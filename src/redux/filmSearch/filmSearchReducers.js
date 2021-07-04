@@ -12,7 +12,8 @@ const filmSearchReducers = (state = initialeState, action) => {
     switch (action.type) {
         case FETCH_FILMS_SEARCH_SUCCES:
             return {
-                searchFilmsFetched: action.payload,
+                searchFilmsFetched: action.payload.filmsFetched,
+                search: action.payload.search,
                 error: ''
             }
         case FETCH_FILMS_SEARCH_FAIL:

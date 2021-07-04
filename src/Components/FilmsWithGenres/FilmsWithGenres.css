@@ -92,6 +92,12 @@
 
 .note {
   display: flex;
+  color: gold
+}
+
+.note p {
+  color: white
+
 }
 
 .noFav {
@@ -101,4 +107,19 @@
 
 .star {
   color: white;
+}
+
+.titleNoResults {
+  font-size: 30px;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+  color: white;
+}
+
+.noResults {
+  margin-top: 15%;
+}
+
+.waitingDiv {
+  margin-top: 30vh;
 }

@@ -1,4 +1,4 @@
-import { FETCH_FILMS_GENRES_SUCCES, FETCH_FILMS_GENRES_FAIL } from '../types';
+import { FETCH_FILMS_GENRES_SUCCES, FETCH_FILMS_GENRES_FAIL, FETCH_FILMS_REFRESH } from '../types';
 import Axios from 'axios';
 
 export const fetchFilmsSuccess = (films) => {
@@ -12,6 +12,13 @@ const fetchFilmsFail = (error) => {
     return {
         type: FETCH_FILMS_GENRES_FAIL,
         payload: error
+    }
+}
+
+export const fetchFilmsRefresh = () => {
+    return {
+        type: FETCH_FILMS_REFRESH,
+        payload: []
     }
 }
 

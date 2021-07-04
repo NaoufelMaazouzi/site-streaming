@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import './FilmsWithGenres.css';
-import { fetchFilmsWithGenres } from '../../redux/filmWithGenres/filmWithGenresActions';
 import { connect } from 'react-redux';
 import { getFavoritesFilms } from '../../redux/favoritesFilms/favoritesFilmsActions';
+import { fetchFilmsSearch } from '../../redux/filmSearch/filmSearchActions';
+import { fetchFilmsWithGenres } from '../../redux/filmWithGenres/filmWithGenresActions';
 import CardFilm from './cardFilm';
-
+import { useLocation } from 'react-router';
+import queryString from 'query-string';
 
 const FilmsWithGenres =  ({
     id,
@@ -13,38 +15,45 @@ const FilmsWithGenres =  ({
     filmsData,
     fetchFilmsWithGenres,
     filmSearch,
-    favoritesFilms
+    favoritesFilms,
+    fetchFilmsSearch
 }) => {
     let cardFilm = <CardFilm titreSection={titreSection} />;
+    const {search, page} = queryString.parse(useLocation().search);
 
     useEffect(() => {
-        if (titreSection !== 'Favoris') {
-            fetchFilmsWithGenres(id, 1);
+        if (titreSection !== 'FAVORIS') {
+            fetchFilmsWithGenres(id, page);
         }
-        getFavoritesFilms();
+        if (search) {
+            fetchFilmsSearch({search, pageNumber: page});
+        }
+        getFavoritesFilms({pageNumber: page});
     }, [])
 
-
-    if (titreSection !== 'Favoris' && filmSearch?.searchFilmsFetched?.results?.length) {
+    if (filmSearch?.searchFilmsFetched?.results?.length) {
         cardFilm = <CardFilm
         data={filmSearch?.searchFilmsFetched?.results}
-        titreSection={titreSection}
+        titreSection={'Tous les films correspondants à votre recherche'}
         totalResults={filmSearch?.searchFilmsFetched?.total_results}
         id={id}
+        reload={true}
         />
-    } else if (titreSection !== 'Favoris') {
+    } else if (titreSection !== 'FAVORIS') {
         cardFilm = <CardFilm
         data={filmsData?.filmsFetched?.results}
         titreSection={titreSection}
         totalResults={filmsData?.totalResults}
         id={id}
+        reload={true}
         />
     } else {
         cardFilm = <CardFilm
-        data={favoritesFilms}
+        data={favoritesFilms?.filmsReduced?.slice(0, 20)}
         titreSection={titreSection}
-        totalResults={favoritesFilms?.length}
+        totalResults={favoritesFilms?.filmsReduced?.length}
         id={id}
+        reload={false}
         />
     }
 
@@ -55,7 +64,7 @@ const FilmsWithGenres =  ({
     );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
         filmsData: state.filmsWithGenres,
         filmSearch: state.filmSearch,
@@ -63,10 +72,11 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = dispatch => {
     return {
         fetchFilmsWithGenres: (id, page) => dispatch(fetchFilmsWithGenres(id, page)),
-        getFavoritesFilms: () => dispatch(getFavoritesFilms())
+        getFavoritesFilms: ({pageNumber}) => dispatch(getFavoritesFilms({pageNumber})),
+        fetchFilmsSearch: ({search, pageNumber}) => dispatch(fetchFilmsSearch({search, pageNumber})),
     }
 }
 

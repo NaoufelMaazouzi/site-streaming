@@ -65,6 +65,10 @@
   border-radius: 4px;
 }
 
+.activeLink {
+  color: #2196f3 
+}
+
 @media (max-width: 768px) {
   .toolbar_navigation-items {
     display: none;
