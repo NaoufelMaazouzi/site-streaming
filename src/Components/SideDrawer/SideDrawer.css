@@ -42,13 +42,13 @@
 
 .sideSearchInput {
   padding: 12px;
-  margin-left: -20%;
-  width: 139%;
+  margin-left: 10%;
+  width: 80%;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 959px) {
   .side-drawer {
     display: none;
   }

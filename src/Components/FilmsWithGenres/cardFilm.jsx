@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import Pagination from '../Pagination/Pagination';
 import { CircularProgress } from '@material-ui/core';
 import red from '@material-ui/core/colors/red';
+import { useSnackbar } from 'notistack';
 
 const CardFilm = ({
     id,
@@ -25,6 +26,7 @@ const CardFilm = ({
 }) => {
     const [loading, setLoading] = useState(true);
     const canReload = reload ? data : null;
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         getFavoritesFilms({});
@@ -33,6 +35,17 @@ const CardFilm = ({
             setLoading(false);
         }, 400);
     }, [canReload])
+
+    const handleFav = (film, variant) => {
+        let message;
+        if (variant === 'success') {
+            message = 'Film ajouté aux favoris !';
+        } else {
+            message = 'Film supprimé des favoris !';
+        }
+        enqueueSnackbar(message, { variant });
+        return addFavoritesFilms(film);
+      };
 
     return (
         <div>
@@ -56,8 +69,8 @@ const CardFilm = ({
                                         </div>
                                         <IconButton style={{ color: red[500] }} aria-label="ajouter aux favoris" component="span">
                                         {favoritesFilms.films.map(e => e.id)?.includes(film.id) ?
-                                            <FavoriteIcon onClick={() => addFavoritesFilms(film)} /> :
-                                            <FavoriteBorderIcon onClick={() => addFavoritesFilms(film)} />
+                                            <FavoriteIcon onClick={() => handleFav(film, 'error')} /> :
+                                            <FavoriteBorderIcon onClick={() => handleFav(film, 'success')} />
                                         }
                                         </IconButton>
                                     </div>

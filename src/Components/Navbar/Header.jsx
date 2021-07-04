@@ -40,7 +40,7 @@ const Header = ({ drawerClickHandler, fetchFilmsSearch, fetchFilmsSearchRefresh 
                             <li className={activeLink === '/' ? 'activeLink' : ''}>Accueil</li>
                         </Link>
                         <Link to="/actions?page=1" onClick={() => handleClick('/actions')}>
-                            <li className={activeLink === '/actions' ? 'activeLink' : ''}>Actions</li>
+                            <li className={activeLink === '/actions' ? 'activeLink' : ''}>Action</li>
                         </Link>
                         <Link to="/aventure?page=1" onClick={() => handleClick('/aventure')}>
                             <li className={activeLink ==='/aventure' ? 'activeLink' : ''}>Aventure</li>

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import FilmsDetails from './Components/FilmsDetails/FilmsDetails';
 import SideDrawer from './Components/SideDrawer/SideDrawer';
 import Backdrop from './Components/Backdrop/Backdrop';
+import { SnackbarProvider } from 'notistack';
 
 const App = () => {
 
@@ -28,6 +29,7 @@ const App = () => {
 
   return (
     <Router>
+        <SnackbarProvider maxSnack={3}>
       <div className="body">
         <Header drawerClickHandler={drawerToggleClickHandler} />
         <SideDrawer closeSide={backdropClickHandler} show={sideDrawerOpen} />
@@ -44,6 +46,7 @@ const App = () => {
           <Route path="/details/:id" component={FilmsDetails} />
         </Switch>
       </div>
+      </SnackbarProvider>
     </Router>
   );
 }

@@ -69,20 +69,27 @@
   color: #2196f3 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 958px) {
   .toolbar_navigation-items {
     display: none;
   }
 }
 
-@media (max-width: 1010px) {
+@media (max-width: 1339px) {
   .toolbar_navigation-items li {
     padding: 0 1rem;
     font-size: 1rem;
   }
 }
 
-@media (min-width: 769px) {
+@media (max-width: 1059px) {
+  .toolbar_navigation-items li {
+    padding: 0 0.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 959px) {
   .toolbar__toggle-button {
     display: none;
   }

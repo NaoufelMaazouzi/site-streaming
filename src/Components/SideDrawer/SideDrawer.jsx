@@ -34,7 +34,7 @@ const SideDrawer = ({ closeSide, show, fetchFilmsSearchRefresh }) => {
                     <li>Accueil</li>
                 </Link>
                 <Link to="/actions" onClick={handleClick}>
-                    <li>Actions</li>
+                    <li>Action</li>
                 </Link>
                 <Link to="/aventure" onClick={handleClick}>
                     <li>Aventure</li>
