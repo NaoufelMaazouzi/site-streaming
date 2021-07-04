@@ -87,7 +87,7 @@ const CardFilm = ({
                             <CircularProgress size={80} />
                         </div>}
                     </div>
-            {!loading ? <Pagination id={id} favorites={titreSection === 'FAVORIS' ? favoritesFilms : false} /> : ''}
+            {!loading && totalResults ? <Pagination id={id} favorites={titreSection === 'FAVORIS' ? favoritesFilms : false} /> : ''}
         </div>
     );
 }
