@@ -30,12 +30,14 @@ const CardFilm = ({
 
     useEffect(() => {
         getFavoritesFilms({});
+        // set hidden to true on mount & after 3sec set it to false so the images can load properly
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
         }, 400);
     }, [canReload])
 
+    // Function triggered when adding or deleting favorites
     const handleFav = (film, variant) => {
         let message;
         if (variant === 'success') {

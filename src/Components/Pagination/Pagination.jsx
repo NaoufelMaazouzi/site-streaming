@@ -20,16 +20,18 @@ const Pagination = ({
     favorites?.page ||
     filmsData?.currentPage;
 
+    // Loop throught films to add links for pagination
     for (let i = 1; i <= filmsTotalPages; i++) {
         let active = filmsCurrentPage === i ? 'active' : '';
         pageLinks.push(
-            <li key={i} onClick={() => handleClick(id, i)}>
+            <li key={i} onClick={() => handleClick(i)}>
                 <button type="button" className={`paginationList ${active}`}>{i}</button>
             </li>
         )
     }
 
-    const handleClick = (id, pageNumber) => {
+    //Function to push a new url when clicking on pagination's links
+    const handleClick = (pageNumber) => {
         history.push(`?${filmSearch.search ? `search=${filmSearch.search}&` : ''}page=${pageNumber}`)
     }
 
@@ -37,11 +39,11 @@ const Pagination = ({
         <div className="paginationContainer">
             <ul className="paginationList">
                 {filmsCurrentPage > 1 ?
-                <li onClick={() => handleClick(id, filmsCurrentPage - 1)}>
+                <li onClick={() => handleClick(filmsCurrentPage - 1)}>
                     <button type="button" className={`paginationList`}>Prec</button>
                 </li> : ''}
                 {filmsCurrentPage > 1 ?
-                <li onClick={() => handleClick(id, filmsTotalPages - filmsTotalPages + 1)}>
+                <li onClick={() => handleClick(filmsTotalPages - filmsTotalPages + 1)}>
                     <button type="button" className={`paginationList`}> &#60;&#60; </button>
                 </li> : ''}
                 {pageLinks[filmsCurrentPage - 3]}
@@ -50,11 +52,11 @@ const Pagination = ({
                 {pageLinks[filmsCurrentPage]}
                 {pageLinks[filmsCurrentPage + 1]}
                 {filmsCurrentPage > 1 && filmsCurrentPage !== filmsTotalPages ?
-                <li onClick={() => handleClick(id, filmsTotalPages)}>
+                <li onClick={() => handleClick(filmsTotalPages)}>
                     <button type="button" className={`paginationList`}> &#62;&#62; </button>
                 </li> : ''}
                 {filmsCurrentPage < filmsTotalPages + 1 && filmsCurrentPage !== filmsTotalPages ?
-                <li onClick={() => handleClick(id, filmsCurrentPage + 1)}>
+                <li onClick={() => handleClick(filmsCurrentPage + 1)}>
                     <button type="button" className={`paginationList`}>Suivant</button>
                 </li> : ''}
             </ul>

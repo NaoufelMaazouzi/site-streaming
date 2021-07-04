@@ -8,6 +8,7 @@ const initialeState = () => {
     }
 }
 
+// Films search reducers
 const filmSearchReducers = (state = initialeState, action) => {
     switch (action.type) {
         case FETCH_FILMS_SEARCH_SUCCES:

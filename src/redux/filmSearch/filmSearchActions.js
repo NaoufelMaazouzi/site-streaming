@@ -1,6 +1,7 @@
 import { FETCH_FILMS_SEARCH_SUCCES, FETCH_FILMS_SEARCH_FAIL, FETCH_FILMS_SEARCH_REFRESH } from '../types';
 import Axios from 'axios';
 
+// Action when fetch films search succeed
 export const fetchFilmsSearchSuccess = (filmsFetched, search) => {
     return {
         type: FETCH_FILMS_SEARCH_SUCCES,
@@ -8,6 +9,7 @@ export const fetchFilmsSearchSuccess = (filmsFetched, search) => {
     }
 }
 
+// Action when fetch films search fails
 export const fetchFilmsSearchFail = (error) => {
     return {
         type: FETCH_FILMS_SEARCH_FAIL,
@@ -15,6 +17,7 @@ export const fetchFilmsSearchFail = (error) => {
     }
 }
 
+// Action when we refresh pages
 export const fetchFilmsSearchRefresh = () => {
     return {
         type: FETCH_FILMS_SEARCH_REFRESH,
@@ -22,6 +25,7 @@ export const fetchFilmsSearchRefresh = () => {
     }
 }
 
+// Function to fetch the searched film from the api
 export const fetchFilmsSearch = ({search, pageNumber}) => {
     return (dispatch, getStore) => {
         const searchFilm = search ? search : getStore().filmSearch?.search;

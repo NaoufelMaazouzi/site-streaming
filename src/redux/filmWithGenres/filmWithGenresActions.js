@@ -1,6 +1,7 @@
 import { FETCH_FILMS_GENRES_SUCCES, FETCH_FILMS_GENRES_FAIL, FETCH_FILMS_REFRESH } from '../types';
 import Axios from 'axios';
 
+// Action when films with genres succeed
 export const fetchFilmsSuccess = (films) => {
     return {
         type: FETCH_FILMS_GENRES_SUCCES,
@@ -8,6 +9,7 @@ export const fetchFilmsSuccess = (films) => {
     }
 }
 
+// Action when films with genres fails
 const fetchFilmsFail = (error) => {
     return {
         type: FETCH_FILMS_GENRES_FAIL,
@@ -15,6 +17,7 @@ const fetchFilmsFail = (error) => {
     }
 }
 
+// Action when we refresh the films with genres
 export const fetchFilmsRefresh = () => {
     return {
         type: FETCH_FILMS_REFRESH,
@@ -22,6 +25,7 @@ export const fetchFilmsRefresh = () => {
     }
 }
 
+// Function to fetch films with genres
 export const fetchFilmsWithGenres = (id, pageNumber) => {
     return (dispatch) => {
         Axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=c0f2b3829e285f40ea8719b23184af1b&language=fr&with_genres=${id}&page=${pageNumber}`)

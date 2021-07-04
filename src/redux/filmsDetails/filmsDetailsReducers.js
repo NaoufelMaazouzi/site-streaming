@@ -7,6 +7,7 @@ const initialeState = () => {
     }
 }
 
+// Films details reducers
 const filmsDetailsReducers = (state = initialeState, action) => {
     switch (action.type) {
         case FETCH_FILMS_DETAILS_SUCCES:

@@ -11,6 +11,7 @@ const initialeState = () => {
     }
 }
 
+// Film with genres reducers
 const filmWithGenresReducers = (state = initialeState, action) => {
     switch (action.type) {
         case FETCH_FILMS_GENRES_SUCCES:

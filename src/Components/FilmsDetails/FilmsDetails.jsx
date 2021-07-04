@@ -8,6 +8,7 @@ const FilmsDetails = ({ fetchFilmsDetails, filmsDetails }) => {
 
     useEffect(() => {
         fetchFilmsDetails();
+        // set hidden to true on mount & after 3sec set it to false so the images can load properly
         setHidden(true);
         setTimeout(() => {
             setHidden(false);

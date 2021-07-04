@@ -1,5 +1,6 @@
 import { FAVORITES_FILMS_IN_CACHE } from '../types';
 
+// Action for the favorites films in cache
 export const favoritesFilmsInCache = ({films, filmsReduced, page}) => {
     return {
         type: FAVORITES_FILMS_IN_CACHE,
@@ -7,6 +8,7 @@ export const favoritesFilmsInCache = ({films, filmsReduced, page}) => {
     }
 }
 
+// Function to add a films to localStorage wwith the name of the film
 export const addFavoritesFilms = (film) => {
     return (dispatch, getState) => {
         let { page, filmsReduced } = getState().favoritesFilms.favoritesFilmsInCache;
@@ -24,6 +26,7 @@ export const addFavoritesFilms = (film) => {
     }
 }
 
+// Function to get favorites films from localStorage with a page number
 export const getFavoritesFilms = ({pageNumber = 1}) => {
     const localStorageData = JSON.parse(localStorage.getItem('favoritesFilms')) || [];
     const filmsReduced = localStorageData.slice(( (pageNumber - 1) * 20), pageNumber * 20);

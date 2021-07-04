@@ -19,6 +19,7 @@ const Header = ({ drawerClickHandler, fetchFilmsSearch, fetchFilmsSearchRefresh 
         setActiveLink(history.location.pathname)
     }, [])
 
+    // Function to change color of links header
     const handleClick = (pathName) => {
         setActiveLink(pathName);
         return fetchFilmsSearchRefresh();
