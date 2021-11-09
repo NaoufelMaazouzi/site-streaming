@@ -13,7 +13,7 @@ test('renders learn react link', () => {
   const { getByText } = render(
     <Provider store={store}>
       <App />
-      </Provider>);
+    </Provider>);
   const linkElement = getByText(/actions/i);
   expect(linkElement).toBeInTheDocument();
 });
