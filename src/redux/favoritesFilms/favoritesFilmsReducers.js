@@ -2,7 +2,7 @@ import { FAVORITES_FILMS_IN_CACHE } from '../types';
 
 const initialeState = () => ({
   favoritesFilmsInCache: [],
-  error: ''
+  error: '',
 });
 
 // Reducer for the favorites films in cache
