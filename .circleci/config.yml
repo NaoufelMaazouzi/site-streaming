@@ -16,9 +16,9 @@ jobs:
       - run:
           name: Run tests
           command: npm run test
-      # - run:
-      #     name: Run Lint
-      #     command: npm run lint
+      - run:
+          name: Run Lint
+          command: npm run lint
 
 workflows:
   heroku_deploy:
