@@ -7,27 +7,30 @@ const initialeState = () => ({
 
 // Films search reducers
 const filmSearchReducers = (action, state = initialeState) => {
-  switch (action.type) {
-    case FETCH_FILMS_SEARCH_SUCCES:
-      return {
-        searchFilmsFetched: action.payload.filmsFetched,
-        search: action.payload.search,
-        error: '',
-      };
-    case FETCH_FILMS_SEARCH_FAIL:
-      return {
-        searchFilmsFetched: [],
-        error: action.payload,
-      };
+    if (action) {
+        switch (action.type) {
+            case FETCH_FILMS_SEARCH_SUCCES:
+            return {
+                searchFilmsFetched: action.payload.filmsFetched,
+                search: action.payload.search,
+                error: '',
+            };
+            case FETCH_FILMS_SEARCH_FAIL:
+            return {
+                searchFilmsFetched: [],
+                error: action.payload,
+            };
 
-    case FETCH_FILMS_SEARCH_REFRESH:
-      return {
-        searchFilmsFetched: [],
-        error: '',
-      };
-    default:
-      return state;
-  }
+            case FETCH_FILMS_SEARCH_REFRESH:
+            return {
+                searchFilmsFetched: [],
+                error: '',
+            };
+            default:
+            return state;
+        }
+    }
+    return state;
 };
 
 export default filmSearchReducers;
