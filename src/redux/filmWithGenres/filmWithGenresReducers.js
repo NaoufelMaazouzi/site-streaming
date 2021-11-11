@@ -10,7 +10,7 @@ const initialeState = () => ({
 
 // Film with genres reducers
 const filmWithGenresReducers = (action, state = initialeState) => {
-  switch (action.type) {
+  switch (action && action.type) {
     case FETCH_FILMS_GENRES_SUCCES:
       return {
         filmsFetched: action.payload,

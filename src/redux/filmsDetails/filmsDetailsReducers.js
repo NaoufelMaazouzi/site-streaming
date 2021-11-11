@@ -7,7 +7,7 @@ const initialeState = () => ({
 
 // Films details reducers
 const filmsDetailsReducers = (action, state = initialeState) => {
-  switch (action.type) {
+  switch (action && action.type) {
     case FETCH_FILMS_DETAILS_SUCCES:
       return {
         filmsDetailsFetched: action.payload,
