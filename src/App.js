@@ -30,6 +30,7 @@ const App = () => {
       <SnackbarProvider maxSnack={3}>
         <div className="body">
           Test
+
           <Header drawerClickHandler={drawerToggleClickHandler} />
           <SideDrawer closeSide={backdropClickHandler} show={sideDrawerOpen} />
           {backdrop}
