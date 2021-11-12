@@ -49,8 +49,6 @@ const CardFilm = ({
 		return addFavoritesFilms(film);
 	};
 
-  console.log(data);
-
 	return (
   <div>
     <div className="flexBox">
@@ -85,7 +83,7 @@ const CardFilm = ({
 					: (!loading && titreSection === 'FAVORIS'
                         && (
                         <div className="noResults">
-                          <h2 className="titleNoResults">Vous n'avez pas de films dans vos favoris !</h2>
+                          <h2 className="titleNoResults">Vous n'avez pas de films dans vos favoris !!</h2>
                         </div>
                         ))
                         || (
