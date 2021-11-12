@@ -49,6 +49,8 @@ const CardFilm = ({
 		return addFavoritesFilms(film);
 	};
 
+  console.log(data);
+
 	return (
   <div>
     <div className="flexBox">

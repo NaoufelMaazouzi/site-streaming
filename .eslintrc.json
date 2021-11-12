@@ -39,6 +39,7 @@
         "no-param-reassign": [0],
         "template-curly-spacing" : [0],
         "indent" : [0],
-        "no-tabs": [0]
+        "no-tabs": [0],
+        "default-param-last": [0]
     }
 }

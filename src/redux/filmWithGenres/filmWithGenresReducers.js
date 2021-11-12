@@ -9,8 +9,8 @@ const initialeState = () => ({
 });
 
 // Film with genres reducers
-const filmWithGenresReducers = (action, state = initialeState) => {
-    if (action) {
+const filmWithGenresReducers = (state = initialeState, action) => {
+    console.log(action);
         switch (action.type) {
             case FETCH_FILMS_GENRES_SUCCES:
               return {
@@ -39,8 +39,6 @@ const filmWithGenresReducers = (action, state = initialeState) => {
             default:
               return state;
           }
-    }
-    return state;
 };
 
 export default filmWithGenresReducers;

@@ -6,7 +6,7 @@ const initialeState = () => ({
 });
 
 // Films search reducers
-const filmSearchReducers = (action, state = initialeState) => {
+const filmSearchReducers = (state = initialeState, action) => {
     if (action) {
         switch (action.type) {
             case FETCH_FILMS_SEARCH_SUCCES:
