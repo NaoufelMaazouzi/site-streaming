@@ -5,8 +5,9 @@ Ce projet est un site de streamin fictif. Il a pour but d'afficher les films sel
 
 ## DevOps
 
-Il y a 4 étatpes pour l'intégration et le déploiement continu lors du build:
+Il y a 5 étatpes pour l'intégration et le déploiement continu lors du build:
     - L'installation des dépendences
     - Les tests
     - Le Lint du code
     - Le code quality
+    - Deploy via Heroku
