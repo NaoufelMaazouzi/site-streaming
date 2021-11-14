@@ -2,6 +2,7 @@
 ## Description du projet
 
 Ce projet est un site de streamin fictif. Il a pour but d'afficher les films selon la catégorie choisie. Le site contient aussi une barre de recherche pour rechercher les films que l'on souhaite.
+URL DU PROJET: https://td-ci-cd.herokuapp.com/
 
 ## DevOps
 
